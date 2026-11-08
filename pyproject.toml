@@ -24,3 +24,9 @@ dev = [
     "pytest>=9.0.1",
     "pytest-cov>=7.0.0",
 ]
+docs = [
+    "scriptorium",
+]
+
+[tool.uv.sources]
+scriptorium = { git = "https://github.com/apiad/scriptorium", rev = "v0.13.0" }
