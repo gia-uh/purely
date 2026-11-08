@@ -1,6 +1,7 @@
 # Purely, the guide. Every Python block runs against the installed package when
 # the docs render (`make docs`); the task chapters also tangle examples/.
 theme: book
+base-url: https://uhgia.org/purely/
 execute: {timeout: 60, freeze: file}
 
 vars:
@@ -23,3 +24,6 @@ outputs:
     format: docs
     dir: site
     repo-url: https://github.com/gia-uh/purely
+    version: auto
+    palette: {primary: "#0f766e", accent: "#d97706"}
+    footer: "Purely is MIT-licensed. Made at GIA-UH."

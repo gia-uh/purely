@@ -2,7 +2,8 @@ name: Docs gate
 
 # The guide renders with every block executed, docs/examples/ matches the chapters,
 # the examples run, and rift finds every public class in the docs. The release
-# workflow calls this before publishing; run it by hand on any branch.
+# workflow calls this before publishing; run by hand on main, it also deploys
+# the guide to GitHub Pages without a release.
 on:
   workflow_call:
   workflow_dispatch:
@@ -32,3 +33,18 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs/site
+
+  pages:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+    needs: docs
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Deploy the guide to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
