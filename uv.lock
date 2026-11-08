@@ -312,7 +312,7 @@ dev = [
     { name = "pytest", specifier = ">=9.0.1" },
     { name = "pytest-cov", specifier = ">=7.0.0" },
 ]
-docs = [{ name = "scriptorium", git = "https://github.com/apiad/scriptorium?rev=v0.13.0" }]
+docs = [{ name = "scriptorium", git = "https://github.com/apiad/scriptorium?rev=v0.14.0" }]
 
 [[package]]
 name = "pygments"
@@ -434,8 +434,8 @@ wheels = [
 
 [[package]]
 name = "scriptorium"
-version = "0.13.0"
-source = { git = "https://github.com/apiad/scriptorium?rev=v0.13.0#a9a074d9fd3e02a75587509c79654e9df4f76c11" }
+version = "0.14.0"
+source = { git = "https://github.com/apiad/scriptorium?rev=v0.14.0#24354bd9c6648f2589922705205928a229ce3e65" }
 dependencies = [
     { name = "markdown-it-py" },
     { name = "mdit-py-plugins" },
