@@ -1,0 +1,25 @@
+# Purely, the guide. Every Python block runs against the installed package when
+# the docs render (`make docs`); the task chapters also tangle examples/.
+theme: book
+execute: {timeout: 60, freeze: file}
+
+vars:
+  title: "Purely"
+  subtitle: "Functional tools for everyday Python"
+
+files:
+  - chapters/00-index.md
+  - chapters/01-a-customers-city.md
+  - chapters/02-reading-the-shop-settings.md
+  - chapters/03-validating-a-signup.md
+  - chapters/04-importing-a-batch-of-orders.md
+  - chapters/05-pricing-rules.md
+  - chapters/06-sending-notifications.md
+  - chapters/07-testing-the-checkout.md
+  - chapters/08-the-checkout-end-to-end.md
+
+outputs:
+  site:
+    format: docs
+    dir: site
+    repo-url: https://github.com/gia-uh/purely

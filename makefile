@@ -1,8 +1,18 @@
 default: test-unit
 
-.PHONY: docs
+.PHONY: docs docs-check
+# Render the guide; every code block runs, and the task chapters write docs/examples/.
 docs:
-	cd docs && quarto publish gh-pages
+	uv run scriptorium render docs/scriptorium.yaml --only site
+
+# The release gate: the guide renders without a failing block, docs/examples/ matches
+# the chapters, the examples run, and rift finds every public class in the docs.
+docs-check: docs
+	! grep -l 'Traceback (most recent call last)' docs/site/*.html
+	for c in docs/chapters/*.md; do uv run scriptorium tangle --test $$c -d docs || exit 1; done
+	for e in docs/examples/*.py; do [ $$(basename $$e) = __init__.py ] || grep -q "export=$${e#docs/}" docs/chapters/*.md || { echo "$$e is not tangled from the docs"; exit 1; }; done
+	for e in docs/examples/*.py; do uv run python $$e > /dev/null || exit 1; done
+	uvx --from git+https://github.com/apiad/rift@v0.9.0 rift check .
 
 .PHONY: bugfix
 bugfix:
@@ -59,6 +69,7 @@ release: format-check
 		exit 1; \
 	fi
 	@make test-all
+	@make docs-check
 	@echo "Bumping version from $(CURRENT_VERSION) to $(NEW_VERSION)..."
 
 	@echo Replace version in pyproject.toml

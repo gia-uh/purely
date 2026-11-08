@@ -207,3 +207,8 @@ marimo/_lsp/
 __marimo__/
 *.db
 .issues-sync-state
+
+# scriptorium output and its run cache
+docs/site/
+docs/.scriptorium/
+docs/build/
