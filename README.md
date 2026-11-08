@@ -30,7 +30,7 @@ pip install purely
 
 ## 📚 User Guide
 
-The guide lives in [`docs/chapters/`](docs/chapters/) and builds the library up in order: `Option`, safe navigation, results, pipelines, currying, dispatch and dependency injection, then two end-to-end tasks. Every code block in it runs against the package when it is built (`make docs`), and the task chapters write the programs in [`docs/examples/`](docs/examples/).
+The guide lives in [`docs/chapters/`](docs/chapters/). It follows the backend of a small online bookshop: each chapter starts from a job the shop needs done, solves it in plain Python, and then shows the one or two ideas from purely that make it simpler, ending with a checkout that uses all of them. Every code block in it runs against the package when it is built (`make docs`), and the task chapters write the programs in [`docs/examples/`](docs/examples/).
 
 ## 🛠 Contribution
 

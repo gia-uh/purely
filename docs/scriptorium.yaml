@@ -9,15 +9,14 @@ vars:
 
 files:
   - chapters/00-index.md
-  - chapters/01-option.md
-  - chapters/02-safe-navigation.md
-  - chapters/03-results.md
-  - chapters/04-pipelines.md
-  - chapters/05-currying.md
-  - chapters/06-dispatch.md
-  - chapters/07-dependency-injection.md
-  - chapters/08-task-reading-config.md
-  - chapters/09-task-order-pipeline.md
+  - chapters/01-a-customers-city.md
+  - chapters/02-reading-the-shop-settings.md
+  - chapters/03-validating-a-signup.md
+  - chapters/04-importing-a-batch-of-orders.md
+  - chapters/05-pricing-rules.md
+  - chapters/06-sending-notifications.md
+  - chapters/07-testing-the-checkout.md
+  - chapters/08-the-checkout-end-to-end.md
 
 outputs:
   site:
