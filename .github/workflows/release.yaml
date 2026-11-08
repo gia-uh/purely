@@ -57,3 +57,17 @@ jobs:
 
       - name: Publish to PyPI
         run: uv publish --token ${{ secrets.PYPI_TOKEN }}
+
+  pages:
+    needs: [docs, publish-pypi]
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Deploy the guide to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
