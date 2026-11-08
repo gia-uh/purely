@@ -1,6 +1,6 @@
 [project]
 name = "purely"
-version = "1.2"
+version = "1.2.1"
 description = "Unobstrusive functional programming in Python."
 readme = "README.md"
 authors = [
