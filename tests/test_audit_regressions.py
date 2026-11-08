@@ -37,7 +37,9 @@ def test_option_setitem_on_dict_still_writes():
 # =============================================================================
 
 
-@pytest.mark.xfail(strict=True, reason="bug #2: literal None cannot be a recovery value; result.py:54")
+@pytest.mark.xfail(
+    strict=True, reason="bug #2: literal None cannot be a recovery value; result.py:54"
+)
 def test_err_unwrap_default_none_returns_none():
     assert Err("boom").unwrap(default=None) is None
 
@@ -53,7 +55,9 @@ def test_err_unwrap_default_nonzero_falsy_returns_value():
 # =============================================================================
 
 
-@pytest.mark.xfail(strict=True, reason="bug #3: bare class hits provider=lambda branch; di.py:42")
+@pytest.mark.xfail(
+    strict=True, reason="bug #3: bare class hits provider=lambda branch; di.py:42"
+)
 def test_registry_register_bare_class_resolves_to_instance():
     class Service:
         pass
@@ -68,7 +72,9 @@ def test_registry_register_bare_class_resolves_to_instance():
 # =============================================================================
 
 
-@pytest.mark.xfail(strict=True, reason="bug #4: any __call__ instance treated as factory; di.py:42")
+@pytest.mark.xfail(
+    strict=True, reason="bug #4: any __call__ instance treated as factory; di.py:42"
+)
 def test_registry_register_callable_instance_preserves_instance():
     class Bus:
         def __call__(self):
@@ -90,7 +96,10 @@ def test_registry_register_callable_instance_preserves_instance():
 # =============================================================================
 
 
-@pytest.mark.xfail(strict=True, reason="bug #5: provider() called once for MRO discovery at register; di.py:53")
+@pytest.mark.xfail(
+    strict=True,
+    reason="bug #5: provider() called once for MRO discovery at register; di.py:53",
+)
 def test_registry_factory_side_effects_do_not_fire_at_registration():
     calls = {"n": 0}
 
@@ -113,7 +122,10 @@ def test_registry_factory_side_effects_do_not_fire_at_registration():
 # =============================================================================
 
 
-@pytest.mark.xfail(strict=True, reason="bug #6: NameError captured at .then(); should propagate immediately; core.py:227")
+@pytest.mark.xfail(
+    strict=True,
+    reason="bug #6: NameError captured at .then(); should propagate immediately; core.py:227",
+)
 def test_chain_then_propagates_nameerror():
     # The NameError should escape .then() at the call site, not be stored as
     # a domain error to be re-raised at .unwrap() time.
@@ -121,7 +133,10 @@ def test_chain_then_propagates_nameerror():
         Chain(5).then(lambda x: undefined_name)  # noqa: F821
 
 
-@pytest.mark.xfail(strict=True, reason="bug #6: AttributeError captured at .then(); should propagate immediately; core.py:227")
+@pytest.mark.xfail(
+    strict=True,
+    reason="bug #6: AttributeError captured at .then(); should propagate immediately; core.py:227",
+)
 def test_chain_then_propagates_attributeerror_on_typo():
     class User:
         address = "1 Main St"
@@ -130,13 +145,19 @@ def test_chain_then_propagates_attributeerror_on_typo():
         Chain(User()).then(lambda u: u.adress)
 
 
-@pytest.mark.xfail(strict=True, reason="bug #6: tap captures programmer errors; should propagate; core.py:237")
+@pytest.mark.xfail(
+    strict=True,
+    reason="bug #6: tap captures programmer errors; should propagate; core.py:237",
+)
 def test_chain_tap_propagates_nameerror():
     with pytest.raises(NameError):
         Chain(5).tap(lambda x: undefined_name)  # noqa: F821
 
 
-@pytest.mark.xfail(strict=True, reason="bug #6: Ok.then captures AttributeError; should propagate; result.py:24")
+@pytest.mark.xfail(
+    strict=True,
+    reason="bug #6: Ok.then captures AttributeError; should propagate; result.py:24",
+)
 def test_ok_then_propagates_attributeerror():
     class User:
         address = "1 Main St"
@@ -150,7 +171,9 @@ def test_ok_then_propagates_attributeerror():
 # =============================================================================
 
 
-@pytest.mark.xfail(strict=True, reason="bug #7: predicate exception swallowed; dispatch.py:48")
+@pytest.mark.xfail(
+    strict=True, reason="bug #7: predicate exception swallowed; dispatch.py:48"
+)
 def test_dispatcher_predicate_exception_propagates():
     @dispatcher
     def proc(x):
@@ -169,7 +192,9 @@ def test_dispatcher_predicate_exception_propagates():
 # =============================================================================
 
 
-@pytest.mark.xfail(strict=True, reason="bug #8: __eq__ must be a total relation; core.py:339")
+@pytest.mark.xfail(
+    strict=True, reason="bug #8: __eq__ must be a total relation; core.py:339"
+)
 def test_failed_chain_eq_is_total_relation():
     c = Chain.fail(ValueError("x"))
     # equal to itself
@@ -179,7 +204,10 @@ def test_failed_chain_eq_is_total_relation():
     assert (c == "anything") is False
 
 
-@pytest.mark.xfail(strict=True, reason="bug #8: two failed chains with same exception should compare equal")
+@pytest.mark.xfail(
+    strict=True,
+    reason="bug #8: two failed chains with same exception should compare equal",
+)
 def test_two_failed_chains_with_equal_errors_compare_equal():
     e1 = ValueError("x")
     e2 = ValueError("x")
@@ -236,7 +264,9 @@ def test_option_unwrap_default_error_is_fresh_each_call():
 # =============================================================================
 
 
-@pytest.mark.xfail(strict=True, reason="bug #11: kwargs ignored in dispatch loop; dispatch.py:59")
+@pytest.mark.xfail(
+    strict=True, reason="bug #11: kwargs ignored in dispatch loop; dispatch.py:59"
+)
 def test_dispatcher_dispatches_on_kwargs():
     # Two overloads — only one matches by type. With positional args this works.
     # With keyword-only args the dispatcher currently cannot disambiguate
@@ -262,7 +292,10 @@ def test_dispatcher_dispatches_on_kwargs():
 # =============================================================================
 
 
-@pytest.mark.xfail(strict=True, reason="bug #12: zero-arg dispatch leaves all candidates in pool; dispatch.py:46")
+@pytest.mark.xfail(
+    strict=True,
+    reason="bug #12: zero-arg dispatch leaves all candidates in pool; dispatch.py:46",
+)
 def test_dispatcher_zero_arg_multiple_overloads_does_not_raise_ambiguity():
     # With ≥2 zero-arg overloads, the candidate-filtering loop never runs and
     # every implementation remains a candidate → AmbiguityError. The expected
@@ -290,7 +323,10 @@ def test_dispatcher_zero_arg_multiple_overloads_does_not_raise_ambiguity():
 # =============================================================================
 
 
-@pytest.mark.xfail(strict=True, reason="footgun F1: bogus kwarg silently retained as partial state; curry.py:104")
+@pytest.mark.xfail(
+    strict=True,
+    reason="footgun F1: bogus kwarg silently retained as partial state; curry.py:104",
+)
 def test_curry_rejects_unknown_kwargs_at_application_time():
     @curry
     def f(a, b):
@@ -309,7 +345,9 @@ def test_curry_rejects_unknown_kwargs_at_application_time():
 # =============================================================================
 
 
-@pytest.mark.xfail(strict=True, reason="footgun F2: VAR_POSITIONAL excluded from arity; curry.py:90")
+@pytest.mark.xfail(
+    strict=True, reason="footgun F2: VAR_POSITIONAL excluded from arity; curry.py:90"
+)
 def test_curry_variadic_function_is_not_silently_no_op():
     # We want curry to either reject variadic functions outright, or treat them
     # in a way that doesn't make `f(1)` execute the body before all args arrive.
@@ -327,14 +365,18 @@ def test_curry_variadic_function_is_not_silently_no_op():
 # =============================================================================
 
 
-@pytest.mark.xfail(strict=True, reason="footgun F3: dict accepted as Iterable; core.py:262")
+@pytest.mark.xfail(
+    strict=True, reason="footgun F3: dict accepted as Iterable; core.py:262"
+)
 def test_chain_map_on_dict_is_explicit_not_silent():
     # Either reject dicts (TypeError) or map over (k, v) pairs. Silently
     # iterating keys is the surprise.
     result = Chain({"a": 1, "b": 2}).map(lambda kv: kv)
     if result.is_ok:
         # If we accept dicts, the mapped value should be pairs, not bare keys.
-        assert all(isinstance(item, tuple) and len(item) == 2 for item in result.unwrap())
+        assert all(
+            isinstance(item, tuple) and len(item) == 2 for item in result.unwrap()
+        )
     else:
         assert isinstance(result.error(), TypeError)
 
@@ -344,7 +386,10 @@ def test_chain_map_on_dict_is_explicit_not_silent():
 # =============================================================================
 
 
-@pytest.mark.xfail(strict=True, reason="footgun F4: 'if cls not in providers' blocks override; di.py:60")
+@pytest.mark.xfail(
+    strict=True,
+    reason="footgun F4: 'if cls not in providers' blocks override; di.py:60",
+)
 def test_registry_overlapping_mro_registration_is_explicit():
     class Base:
         pass
@@ -368,7 +413,9 @@ def test_registry_overlapping_mro_registration_is_explicit():
 # =============================================================================
 
 
-@pytest.mark.xfail(strict=True, reason="footgun F5: no way to scope predicate; dispatch.py:48")
+@pytest.mark.xfail(
+    strict=True, reason="footgun F5: no way to scope predicate; dispatch.py:48"
+)
 def test_dispatcher_type_dispatch_survives_unrelated_predicate():
     # An over-broad predicate registered for one type should not shadow type
     # dispatches on unrelated types.
